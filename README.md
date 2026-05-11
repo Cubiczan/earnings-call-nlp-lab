@@ -1,6 +1,6 @@
 # Earnings Call NLP Lab
 
-Earnings Call NLP Lab rebuilds the Dave Wang earnings-call NLP workflow as a lightweight, auditable Python app.
+Earnings Call NLP Lab is a lightweight, auditable Python app for transcript sentiment, management tone, and longitudinal earnings-call analysis.
 
 It analyzes:
 
@@ -35,4 +35,3 @@ The verifier returns `REQUIRES_HUMAN_VERIFICATION` if:
 - required columns are missing
 
 This is a research assistant, not investment advice.
-
