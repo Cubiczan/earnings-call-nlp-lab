@@ -1,0 +1,19 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "earnings-call-nlp-lab"
+version = "0.1.0"
+description = "Earnings call NLP lab for management tone, confidence, evasiveness, and longitudinal change."
+readme = "README.md"
+requires-python = ">=3.10"
+authors = [{ name = "Cubiczan" }]
+dependencies = []
+
+[project.scripts]
+earnings-call-nlp-lab = "earnings_call_nlp_lab.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+

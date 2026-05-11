@@ -1,0 +1,8 @@
+ticker,quarter,speaker,role,text,source_url
+ACME,2025Q4,CEO,management,"Demand remained resilient and we delivered record enterprise momentum. We are confident in the durability of our pipeline and expect margin expansion as productivity improves. Inflation remains a headwind, but customer retention is strong and our execution is accelerating.",https://example.com/acme-2025q4-call
+ACME,2025Q4,CFO,management,"Free cash flow was strong and operating leverage improved. We continue to invest with discipline while monitoring risk and volatility in Europe. We are confident that pricing actions and lower cloud costs can expand margin.",https://example.com/acme-2025q4-call
+ACME,2025Q4,Analyst,analyst,"Can you discuss whether demand is accelerating or merely recovering from prior weakness?",https://example.com/acme-2025q4-call
+ACME,2026Q1,CEO,management,"The quarter was challenging. Demand was soft in mid-market, and several expansion deals were delayed. It is too early to say whether the pressure is temporary. We remain resilient, but volatility and customer budget scrutiny created headwind across new logos.",https://example.com/acme-2026q1-call
+ACME,2026Q1,CFO,management,"Gross margin was stable, but sales cycles lengthened. We do not disclose monthly pipeline conversion, and it is hard to say when delayed deals will close. We are managing expenses carefully and protecting free cash flow.",https://example.com/acme-2026q1-call
+ACME,2026Q1,Analyst,analyst,"How much of the decline is macro pressure versus company-specific execution risk?",https://example.com/acme-2026q1-call
+
