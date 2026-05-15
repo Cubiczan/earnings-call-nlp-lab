@@ -35,3 +35,7 @@ The verifier returns `REQUIRES_HUMAN_VERIFICATION` if:
 - required columns are missing
 
 This is a research assistant, not investment advice.
+
+## Demo
+
+📺 [Watch the demo](demos/$(basename "$video")) — slide-style walkthrough of key features and usage.
