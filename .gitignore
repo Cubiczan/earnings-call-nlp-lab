@@ -6,4 +6,6 @@ dist/
 build/
 .DS_Store
 outputs/
+.env
+*.log
 

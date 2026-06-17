@@ -40,4 +40,4 @@ This is a research assistant, not investment advice.
 
 [![Demo Video](https://img.shields.io/badge/Watch_Demo-3min-blue)](docs/media/earnings-call-nlp-lab-demo.mp4)
 
-📺 [Watch the demo](demos/$(basename "$video")) — slide-style walkthrough of key features and usage.
+[Watch the demo](demos/earnings-call-nlp-lab_demo.mp4) — slide-style walkthrough of key features and usage.
