@@ -5,9 +5,13 @@ import csv
 import json
 import re
 from collections import defaultdict
-from dataclasses import asdict, dataclass, field
+from dataclasses import asdict, dataclass
 from pathlib import Path
 from typing import Dict, List
+
+from cubiczan_resilience.verification_gate import VerificationGate, build_gate
+
+__all__ = ["QuarterTone", "VerificationGate", "EarningsNLPReport", "analyze_transcripts"]
 
 
 REQUIRED_COLUMNS = {"ticker", "quarter", "speaker", "role", "text", "source_url"}
@@ -27,13 +31,10 @@ class QuarterTone:
     summary: str
 
 
-@dataclass
-class VerificationGate:
-    status: str
-    confidence: int
-    violations: List[str] = field(default_factory=list)
-
-
+# VerificationGate moved to the canonical cubiczan_resilience.verification_gate
+# module (row 29): one deterministic confidence rule for the whole portfolio
+# (PENALTY_PER_VIOLATION=12, CONFIDENCE_FLOOR=50). This module re-exports it
+# for backwards-compatible imports; construct gates with build_gate().
 @dataclass
 class EarningsNLPReport:
     ticker: str
@@ -128,7 +129,7 @@ def _verify(rows: List[Dict[str, str]]) -> VerificationGate:
     violations: List[str] = []
     if not rows:
         violations.append("transcript file is empty")
-        return VerificationGate("REQUIRES_HUMAN_VERIFICATION", 50, violations)
+        return build_gate(violations)
     missing = REQUIRED_COLUMNS - set(rows[0].keys())
     if missing:
         violations.append(f"missing columns: {', '.join(sorted(missing))}")
@@ -139,12 +140,11 @@ def _verify(rows: List[Dict[str, str]]) -> VerificationGate:
     management_words = " ".join(row.get("text", "") for row in rows if row.get("role", "").lower() == "management").split()
     if len(management_words) < 50:
         violations.append("management transcript text is too short for reliable tone analysis")
-    confidence = 100 if not violations else max(50, 100 - 12 * len(violations))
-    return VerificationGate(
-        status="CLEAR" if confidence == 100 else "REQUIRES_HUMAN_VERIFICATION",
-        confidence=confidence,
-        violations=violations,
-    )
+    # Canonical arithmetic (row 29): confidence and status come from the
+    # shared rule — PENALTY_PER_VIOLATION=12 per violation, CONFIDENCE_FLOOR=50.
+    # Behavior change vs the retired inline rule: the empty-transcript case
+    # now scores 88 (one violation) instead of a hard-coded 50.
+    return build_gate(violations)
 
 
 def report_json(report: EarningsNLPReport) -> str:
