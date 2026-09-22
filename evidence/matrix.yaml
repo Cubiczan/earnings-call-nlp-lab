@@ -1,0 +1,129 @@
+# evidence/matrix.yaml — every capability claim bound to deterministic evidence.
+# Verifier: tools/verify_evidence_matrix.py, vendored byte-identical
+# (sha256 238e02ab19d59e8b4dc2f6cc5f7ddf099f17a32079b1bc62aa9fcbafbfd297e8)
+# from the canonical kit: icohangar-ops/consensus-hardening-protocol @ 88067e4
+# (tools/verify_evidence_matrix.py, EVIDENCE_MATRIX_VERIFIER_VERSION = "1.0.0").
+#
+# Section-by-section claim inventory: README intro + "It analyzes" list (C001-C007),
+# Quick Start (C008), Required Columns (C009), Verification conditions (C010-C013).
+# The Demo section links committed media, not a capability claim; "This is a
+# research assistant, not investment advice" is a disclaimer, likewise not a claim.
+schema_version: 1
+repo: earnings-call-nlp-lab
+claims:
+  - id: C001
+    claim: >-
+      Earnings Call NLP Lab is an auditable Python app for transcript sentiment,
+      management tone, and longitudinal earnings-call analysis.
+    source: "README.md#earnings-call-nlp-lab"
+    evidence:
+      - type: test
+        ref: "tests/test_earnings_nlp.py::test_earnings_nlp_detects_deteriorating_tone"
+  - id: C002
+    claim: >-
+      It analyzes executive confidence language: per-quarter confidence term
+      scoring over management text.
+    source: "README.md#earnings-call-nlp-lab"
+    evidence:
+      - type: test
+        ref: "tests/test_tone_language.py::test_confidence_language_is_counted"
+  - id: C003
+    claim: >-
+      It analyzes risk and caution language: per-quarter risk term scoring over
+      management text.
+    source: "README.md#earnings-call-nlp-lab"
+    evidence:
+      - type: test
+        ref: "tests/test_tone_language.py::test_risk_language_is_counted"
+  - id: C004
+    claim: >-
+      It analyzes evasiveness markers: per-quarter evasive-phrase scoring over
+      management text.
+    source: "README.md#earnings-call-nlp-lab"
+    evidence:
+      - type: test
+        ref: "tests/test_tone_language.py::test_evasive_markers_are_counted"
+  - id: C005
+    claim: >-
+      It analyzes quarter-over-quarter tone change: net tone per quarter and an
+      IMPROVING / STABLE / DETERIORATING trend.
+    source: "README.md#earnings-call-nlp-lab"
+    evidence:
+      - type: test
+        ref: "tests/test_earnings_nlp.py::test_earnings_nlp_detects_deteriorating_tone"
+      - type: test
+        ref: "tests/test_tone_language.py::test_qoq_trend_improving_then_stable"
+  - id: C006
+    claim: >-
+      It analyzes the management vs analyst Q&A tone split.
+    source: "README.md#earnings-call-nlp-lab"
+    evidence:
+      - type: test
+        ref: "tests/test_tone_language.py::test_role_split_separates_management_and_analyst"
+  - id: C007
+    claim: >-
+      CHP-style verification runs before conclusions are decision-ready: the
+      canonical VerificationGate gates every report and unverified reports render
+      a blocking section.
+    source: "README.md#earnings-call-nlp-lab"
+    evidence:
+      - type: script
+        ref: "scripts/verify_resilience_pin.py"
+        timeout_seconds: 120
+      - type: test
+        ref: "tests/test_verification_rules.py::test_report_renders_blocking_verification_section"
+      - type: test
+        ref: "tests/test_basic.py::test_empty_transcript_gates_at_confidence_floor"
+  - id: C008
+    claim: >-
+      The Quick Start command analyzes the sample transcripts and emits a JSON
+      report in one command.
+    source: "README.md#quick-start"
+    evidence:
+      - type: test
+        ref: "tests/test_quick_start.py::test_readme_quick_start_command_emits_json"
+      - type: artifact_hash
+        ref: "examples/transcripts.csv"
+        sha256: "d6ce955700d573b6442abe154a73ad7be737bbf91a1673e93f91799bae596743"
+  - id: C009
+    claim: >-
+      The required transcript columns are ticker, quarter, speaker, role, text,
+      source_url — the README contract, the analyzer's REQUIRED_COLUMNS, and the
+      sample dataset agree.
+    source: "README.md#required-columns"
+    evidence:
+      - type: script
+        ref: "scripts/verify_sample_columns.py"
+        timeout_seconds: 120
+  - id: C010
+    claim: >-
+      The verifier returns REQUIRES_HUMAN_VERIFICATION when source URLs are
+      missing.
+    source: "README.md#verification"
+    evidence:
+      - type: test
+        ref: "tests/test_verification_rules.py::test_missing_source_url_requires_human_verification"
+  - id: C011
+    claim: >-
+      The verifier returns REQUIRES_HUMAN_VERIFICATION when fewer than two
+      quarters are supplied.
+    source: "README.md#verification"
+    evidence:
+      - type: test
+        ref: "tests/test_verification_rules.py::test_fewer_than_two_quarters_requires_human_verification"
+  - id: C012
+    claim: >-
+      The verifier returns REQUIRES_HUMAN_VERIFICATION when management text is
+      too short.
+    source: "README.md#verification"
+    evidence:
+      - type: test
+        ref: "tests/test_verification_rules.py::test_short_management_text_requires_human_verification"
+  - id: C013
+    claim: >-
+      The verifier returns REQUIRES_HUMAN_VERIFICATION when required columns are
+      missing.
+    source: "README.md#verification"
+    evidence:
+      - type: test
+        ref: "tests/test_verification_rules.py::test_missing_columns_requires_human_verification"
