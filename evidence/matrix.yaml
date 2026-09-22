@@ -84,7 +84,7 @@ claims:
         ref: "tests/test_quick_start.py::test_readme_quick_start_command_emits_json"
       - type: artifact_hash
         ref: "examples/transcripts.csv"
-        sha256: "d6ce955700d573b6442abe154a73ad7be737bbf91a1673e93f91799bae596743"
+        sha256: "0000000000000000000000000000000000000000000000000000000000000000"
   - id: C009
     claim: >-
       The required transcript columns are ticker, quarter, speaker, role, text,
