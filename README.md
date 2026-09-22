@@ -36,6 +36,12 @@ The verifier returns `REQUIRES_HUMAN_VERIFICATION` if:
 
 This is a research assistant, not investment advice.
 
+## Evidence Matrix
+
+Every capability claim in this file is backed by
+[`evidence/matrix.yaml`](evidence/matrix.yaml); CI refuses builds while any row
+is unverifiable (run `python3 tools/verify_evidence_matrix.py` locally).
+
 ## Demo
 
 [![Demo Video](https://img.shields.io/badge/Watch_Demo-3min-blue)](docs/media/earnings-call-nlp-lab-demo.mp4)
